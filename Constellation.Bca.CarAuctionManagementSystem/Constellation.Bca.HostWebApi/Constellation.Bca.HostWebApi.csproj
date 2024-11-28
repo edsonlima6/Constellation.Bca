@@ -1,0 +1,15 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Constellation.Bca.Application\Constellation.Bca.Application.csproj" />
+    <ProjectReference Include="..\Constellation.Bca.Domain\Constellation.Bca.Domain.csproj" />
+    <ProjectReference Include="..\Constellation.Bca.Infrastructure\Constellation.Bca.Infrastructure.csproj" />
+  </ItemGroup>
+
+</Project>

@@ -1,0 +1,71 @@
+@Constellation.Bca.HostWebApi_HostAddress = https://localhost:7146
+
+GET {{Constellation.Bca.HostWebApi_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
+
+POST {{Constellation.Bca.HostWebApi_HostAddress}}/api/vehicle
+Content-Type: application/json
+
+{
+  //CreateVehicleCommand
+}
+
+###
+
+POST {{Constellation.Bca.HostWebApi_HostAddress}}/api/vehicle
+Content-Type: application/json
+
+{
+  "Vehicle": {
+   "Name": "Corsa",
+   "NumberOfDoors": 4,
+   "RegistrationYear": "2000", 
+   "StartingBid": 1200,
+   "NumberOfSeats": 5,
+   "LoadCapacity": 0, 
+   "UniqueIdentifier": "5HD1GX4117K301959", 
+   "VehicleType": "SUV", 
+   "Manufacturer": "Mercedez",
+   "Model": "Bens"
+  }
+}
+
+###
+
+POST {{Constellation.Bca.HostWebApi_HostAddress}}/api/vehicle
+Content-Type: application/json
+
+{
+  //CreateVehicleCommand
+}
+
+###
+
+POST {{Constellation.Bca.HostWebApi_HostAddress}}/api/vehicle
+Content-Type: application/json
+
+{
+  //CreateVehicleCommand
+}
+
+###
+
+POST {{Constellation.Bca.HostWebApi_HostAddress}}/api/vehicle
+Content-Type: application/json
+
+{
+  //CreateVehicleCommand
+}
+
+###
+
+POST {{Constellation.Bca.HostWebApi_HostAddress}}/api/vehicle
+Content-Type: application/json
+
+{
+  //CreateVehicleCommand
+}
+
+###
