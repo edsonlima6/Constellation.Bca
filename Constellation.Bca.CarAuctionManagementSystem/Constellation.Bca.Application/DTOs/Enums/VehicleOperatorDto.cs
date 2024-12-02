@@ -1,26 +1,18 @@
 ﻿
-namespace Constellation.Bca.Domain.Enums
+namespace Constellation.Bca.Application.DTOs.Enums
 {
-    public enum VehicleType
-    {
-        SUV = 1,
-        Sedan = 2,
-        Hatchback = 3,
-        Truck = 4,
-    }
-
-    public enum Operator
+    public enum VehicleOperatorDto
     {
         Equal,
         NotEqual,
-        GreaterThan, 
+        GreaterThan,
         GreaterThanOrEqual,
-        LessThan, 
+        LessThan,
         LessThanOrEqual,
         Contains,
     }
 
-    public enum Columns
+    public enum ColumnsDto
     {
         RegistrationYear,
         NumberOfSeats,
@@ -30,11 +22,11 @@ namespace Constellation.Bca.Domain.Enums
         Name,
         UniqueIdentifier,
         LoadCapacity,
-        VehicleType,
+        VehicleType, 
         UserName
     }
 
-    public enum Logic
+    public enum LogicDto
     {
         None,
         And,

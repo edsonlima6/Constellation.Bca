@@ -21,11 +21,13 @@ namespace Constellation.Bca.UnitTesting.Domain.Service
         private IVehicleRepository _vehicleRepository;
         private IValidator<Vehicle> _validator;
         private IVehicleService _vehicleService;
+        private IQueryFilterService<Vehicle> _queryFilterService;
 
         [SetUp]
         public void Setup()
         {
             _vehicleRepository = Substitute.For<IVehicleRepository>();
+            _queryFilterService = Substitute.For<IQueryFilterService<Vehicle>>();
             _validator = new VehicleValidator();
         }
 
@@ -39,11 +41,13 @@ namespace Constellation.Bca.UnitTesting.Domain.Service
                .RuleFor(x => x.VehicleType, VehicleType.Sedan)
                .RuleFor(x => x.Manufacturer, y => y.Vehicle.Manufacturer())
                .RuleFor(x => x.Model, y => y.Vehicle.Model())
-               .RuleFor(x => x.RegistrationYear, y => 2024);
+               .RuleFor(x => x.RegistrationYear, y => 2024)
+               .RuleFor(x => x.UserName, y => y.Name.FullName())
+               .RuleFor(x => x.IsActive, true);
 
             var vehicle = fake.Generate();
 
-            _vehicleService = new VehicleService(_vehicleRepository, _validator);
+            _vehicleService = new VehicleService(_vehicleRepository, _validator, _queryFilterService);
 
             // Act
             NotificationDomain notificationDomain = await _vehicleService.AddVehicleAsync(vehicle, CancellationToken.None);
@@ -71,10 +75,12 @@ namespace Constellation.Bca.UnitTesting.Domain.Service
                .RuleFor(x => x.VehicleType, VehicleType.Sedan)
                .RuleFor(x => x.Manufacturer, y => y.Vehicle.Manufacturer())
                .RuleFor(x => x.Model, y => y.Vehicle.Model())
-               .RuleFor(x => x.RegistrationYear, y => 2024);
+               .RuleFor(x => x.RegistrationYear, y => 2024)
+               .RuleFor(x => x.UserName, y => y.Name.FullName())
+               .RuleFor(x => x.IsActive, true);
 
             var vehicle = fake.Generate();
-            _vehicleService = new VehicleService(_vehicleRepository, _validator);
+            _vehicleService = new VehicleService(_vehicleRepository, _validator, _queryFilterService);
 
             // Act
             NotificationDomain notificationDomain = await _vehicleService.AddVehicleAsync(vehicle, CancellationToken.None);
@@ -106,7 +112,7 @@ namespace Constellation.Bca.UnitTesting.Domain.Service
                .RuleFor(x => x.RegistrationYear, y => 2024);
 
             var vehicle = fake.Generate();
-            _vehicleService = new VehicleService(_vehicleRepository, _validator);
+            _vehicleService = new VehicleService(_vehicleRepository, _validator, _queryFilterService);
 
             // Act
             NotificationDomain notificationDomain = await _vehicleService.AddVehicleAsync(vehicle, CancellationToken.None);
@@ -136,7 +142,7 @@ namespace Constellation.Bca.UnitTesting.Domain.Service
                .RuleFor(x => x.RegistrationYear, y => 2024);
 
             var vehicle = fake.Generate();
-            _vehicleService = new VehicleService(_vehicleRepository, _validator);
+            _vehicleService = new VehicleService(_vehicleRepository, _validator, _queryFilterService);
 
             // Act
             NotificationDomain notificationDomain = await _vehicleService.AddVehicleAsync(vehicle, CancellationToken.None);

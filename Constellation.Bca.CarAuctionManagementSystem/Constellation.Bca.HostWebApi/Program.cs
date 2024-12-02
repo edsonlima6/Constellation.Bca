@@ -1,11 +1,11 @@
 using Constellation.Bca.Infrastructure;
 using Constellation.Bca.Application;
 using System.Text.Json.Serialization;
+using Constellation.Bca.HostWebApi.Middleware;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-builder.Services.AddDatabase(builder.Configuration);
 builder.Services.IncludeMemoryCache();
 builder.Services.AddMediatrHost();
 builder.Services.AddMapsterHost();
@@ -14,36 +14,24 @@ builder.Services.AddServicesDepencyInjection();
 builder.Services.AddControllers()
                 .AddJsonOptions(opt => { opt.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter()); });
 
+builder.Services.AddDatabase();
+builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddSwaggerGen();
+
 var app = builder.Build();
 
-app.InitializeDatabase();
+if (app.Environment.IsDevelopment())
+{
+    app.UseSwagger();
+    app.UseSwaggerUI(options => // UseSwaggerUI is called only in Development.
+    {
+        options.SwaggerEndpoint("/swagger/v1/swagger.json", "v1");
+        options.RoutePrefix = string.Empty;
+    });
+}
 
 // Configure the HTTP request pipeline.
-
 app.UseHttpsRedirection();
 app.MapControllers();
-
-var summaries = new[]
-{
-    "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
-};
-
-app.MapGet("/weatherforecast", () =>
-{
-    var forecast = Enumerable.Range(1, 5).Select(index =>
-        new WeatherForecast
-        (
-            DateOnly.FromDateTime(DateTime.Now.AddDays(index)),
-            Random.Shared.Next(-20, 55),
-            summaries[Random.Shared.Next(summaries.Length)]
-        ))
-        .ToArray();
-    return forecast;
-});
-
+app.UseMiddleware<ExceptionHandlerMiddleware>();
 app.Run();
-
-internal record WeatherForecast(DateOnly Date, int TemperatureC, string? Summary)
-{
-    public int TemperatureF => 32 + (int)(TemperatureC / 0.5556);
-}

@@ -9,6 +9,8 @@ namespace Constellation.Bca.Domain.Common
 
         public HttpStatusCode StatusCode { get; set; }
 
+        public object? Data { get; set; }
+
         public NotificationDomain()
         {
             ErrorMessages = [];

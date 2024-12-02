@@ -25,7 +25,9 @@ namespace Constellation.Bca.Application
         public static void AddServicesDepencyInjection(this IServiceCollection services)
         {
             services.AddScoped<IVehicleService, VehicleService>();
-            services.AddScoped<IValidator<Vehicle>, VehicleValidator>();
+            services.AddScoped<IQueryFilterService<Vehicle>, VehicleQueryFilterService>();
+            services.AddScoped<IAuctionService, AuctionService>();
+            services.AddScoped<IAuctionBidService, AuctionBidService>();
         }
     }
 }

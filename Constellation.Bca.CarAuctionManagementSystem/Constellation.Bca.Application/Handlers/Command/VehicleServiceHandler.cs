@@ -1,12 +1,11 @@
-﻿
-using Constellation.Bca.Application.Commands;
+﻿using Constellation.Bca.Application.Commands;
 using Constellation.Bca.Domain.Common;
 using Constellation.Bca.Domain.Entites;
 using Constellation.Bca.Domain.Interfaces.Services;
 using MapsterMapper;
 using MediatR;
 
-namespace Constellation.Bca.Application.Handlers
+namespace Constellation.Bca.Application.Handlers.Command
 {
     public class VehicleServiceHandler(IVehicleService vehicleService, IMapper mapper) : IRequestHandler<CreateVehicleCommand, NotificationDomain>
     {

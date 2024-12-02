@@ -21,6 +21,8 @@ namespace Constellation.Bca.Domain.Validators
             RuleFor(x => x.VehicleType).NotEmpty().NotNull();
             RuleFor(x => x.Name).NotEmpty().NotNull();
             RuleFor(x => x.UniqueIdentifier).NotNull().NotEmpty().Length(17);
+            RuleFor(x => x.UserName).NotEmpty().NotNull();
+            RuleFor(x => x.IsActive).Equal(true).NotEmpty().NotNull();
         }
     }
 }

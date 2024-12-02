@@ -7,11 +7,13 @@ using Microsoft.Extensions.Caching.Memory;
 
 namespace Constellation.Bca.Infrastructure.Repositories
 {
-    public class VehicleRepository(DatabaseContext databaseContext, IMemoryCache memoryCache) : RepositoryBase<Vehicle>(databaseContext), IVehicleRepository 
+    public class VehicleRepository(DatabaseContext databaseContext, IMemoryCache memoryCache) 
+        : RepositoryBase<Vehicle>(databaseContext, memoryCache), IVehicleRepository
     {
-        private readonly IMemoryCache _memoryCache = memoryCache ?? throw new ArgumentNullException(nameof(memoryCache));
         public async Task<bool> IsUniqueIdentifierInUseAsync(string uniqueIdentifier, CancellationToken cancellationToken) => await _dbSet.AnyAsync(x => x.UniqueIdentifier == uniqueIdentifier, cancellationToken);
 
-        public async Task<IEnumerable<Vehicle>> GetAllAsync(CancellationToken cancellationToken) => await memoryCache.GetOrCreateAsync("AllVehicle", x => _dbSet.AsNoTracking().ToListAsync(cancellationToken));
+        public async Task<IEnumerable<Vehicle>> GetAllAsQueryableAsync(CancellationToken cancellationToken) => await GetAllAsync("AllVehicles", cancellationToken);
+
+        public async Task<bool> ExistsById(int vehicleId) => await _dbSet.AnyAsync(x => x.Id == vehicleId);
     }
 }

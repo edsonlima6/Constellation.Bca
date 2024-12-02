@@ -1,13 +1,10 @@
 ﻿
 using Bogus;
-using Constellation.Bca.Domain.Common;
 using Constellation.Bca.Domain.Entites;
 using Constellation.Bca.Domain.Enums;
 using Constellation.Bca.Domain.Validators;
 using FluentValidation;
-using NSubstitute;
 using NUnit.Framework;
-using System.ComponentModel.DataAnnotations;
 
 namespace Constellation.Bca.UnitTesting.Domain.Validator
 {
@@ -35,7 +32,9 @@ namespace Constellation.Bca.UnitTesting.Domain.Validator
                 .RuleFor(x => x.VehicleType, vehicleType)
                 .RuleFor(x => x.Manufacturer, y => y.Vehicle.Manufacturer())
                 .RuleFor(x => x.Model, y => y.Vehicle.Model())
-                .RuleFor(x => x.RegistrationYear, y => 2024);
+                .RuleFor(x => x.RegistrationYear, y => 2024)
+                .RuleFor(x => x.UserName, y => y.Name.FullName())
+                .RuleFor(x => x.IsActive, true);
 
             var vehicle = fake.Generate();
 
@@ -129,8 +128,6 @@ namespace Constellation.Bca.UnitTesting.Domain.Validator
 
         }
 
-        //[TestCase("JYAVP18E07")]
-        //[TestCase("")]
         [TestCase(null)]
         public void GivenVehicleValidatorWithNonValidUniqueIdentifierThenValidatorIsNotValid(string? uniqueIdentifier)
         {

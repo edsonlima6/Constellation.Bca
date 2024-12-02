@@ -7,6 +7,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="7.1.0" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\Constellation.Bca.Application\Constellation.Bca.Application.csproj" />
     <ProjectReference Include="..\Constellation.Bca.Domain\Constellation.Bca.Domain.csproj" />
     <ProjectReference Include="..\Constellation.Bca.Infrastructure\Constellation.Bca.Infrastructure.csproj" />

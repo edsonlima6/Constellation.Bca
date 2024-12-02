@@ -1,10 +1,11 @@
 ﻿
 using Constellation.Bca.Application.DTOs.Enums;
-using Constellation.Bca.Application.DTOs.Enums.Converter;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 
 namespace Constellation.Bca.Application.DTOs
 {
+    [DisplayName("vehicle")]
     public class VehicleDto
     {
         [Required(AllowEmptyStrings = false, ErrorMessage = "Name is required.")]
@@ -30,5 +31,10 @@ namespace Constellation.Bca.Application.DTOs
 
         [Required(AllowEmptyStrings = false, ErrorMessage = "Model is required.")]
         public string Model { get; set; }
+
+        [Required(AllowEmptyStrings = false, ErrorMessage = "User name must be informed")]
+        public string UserName { get; set; }
+
+        public bool IsActive { get; set; }
     }
 }
