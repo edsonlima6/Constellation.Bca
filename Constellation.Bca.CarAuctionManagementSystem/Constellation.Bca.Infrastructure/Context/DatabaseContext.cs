@@ -7,15 +7,10 @@ namespace Constellation.Bca.Infrastructure.Context
 {
     public class DatabaseContext : DbContext, IDisposable
     {
-        public DatabaseContext()
-        {
-                
-        }
-
         public DatabaseContext(DbContextOptions<DatabaseContext> opt) : base(opt)
         {
-                
         }
+
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder) => optionsBuilder.UseInMemoryDatabase("CarAuction");
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
